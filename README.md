@@ -282,8 +282,6 @@ If you need to access other ports besides 8161, configure in **"Network"** panel
 5. Click **"Save"** and **"Redeploy"**
 6. Wait 2-3 minutes and test
 
-**For detailed troubleshooting:** See `TROUBLESHOOTING-COOLIFY.md`
-
 ## Connecting to ActiveMQ
 
 ### Connection URLs (Production)

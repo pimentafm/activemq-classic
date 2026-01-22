@@ -33,19 +33,27 @@ services:
       # - ./conf/log4j2.properties:/opt/apache-activemq/conf/log4j2.properties:ro
 
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8161/ || exit 1"]
+      test: ["CMD-SHELL", "nc -z localhost 8161 || exit 1"]
       interval: 30s
       timeout: 10s
-      retries: 3
-      start_period: 60s
+      retries: 5
+      start_period: 90s
 
     networks:
       - activemq_network
 
     labels:
-      # Labels para Coolify
+      # Coolify labels
       coolify.managed: "true"
       coolify.version: "1.0"
+
+      # Traefik labels for domain routing
+      traefik.enable: "true"
+      traefik.http.routers.activemq.rule: "Host(`activemq.trajetto.com.br`)"
+      traefik.http.routers.activemq.entrypoints: "websecure"
+      traefik.http.routers.activemq.tls: "true"
+      traefik.http.routers.activemq.tls.certresolver: "letsencrypt"
+      traefik.http.services.activemq.loadbalancer.server.port: "8161"
 
 volumes:
   activemq_data:
