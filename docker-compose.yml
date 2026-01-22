@@ -1,0 +1,56 @@
+services:
+  activemq:
+    image: apache/activemq-classic:latest
+    container_name: activemq
+    restart: unless-stopped
+
+    ports:
+      - "${ACTIVEMQ_OPENWIRE_PORT:-61616}:61616"   # OpenWire (JMS)
+      - "${ACTIVEMQ_AMQP_PORT:-5672}:5672"         # AMQP
+      - "${ACTIVEMQ_STOMP_PORT:-61613}:61613"      # STOMP
+      - "${ACTIVEMQ_MQTT_PORT:-1883}:1883"         # MQTT
+      - "${ACTIVEMQ_WS_PORT:-61614}:61614"         # WebSocket
+      - "${ACTIVEMQ_ADMIN_PORT:-8161}:8161"        # Web Console
+
+    environment:
+      # Configurações de memória JVM e Jetty
+      ACTIVEMQ_OPTS: "-Xms${ACTIVEMQ_MIN_MEMORY:-512M} -Xmx${ACTIVEMQ_MAX_MEMORY:-2G} -Djetty.host=0.0.0.0 -Djava.security.auth.login.config=/opt/apache-activemq/conf/login.config"
+
+      # Credenciais admin (altere em produção!)
+      ACTIVEMQ_ADMIN_LOGIN: ${ACTIVEMQ_ADMIN_USER:-admin}
+      ACTIVEMQ_ADMIN_PASSWORD: ${ACTIVEMQ_ADMIN_PASSWORD:-admin}
+
+      # Nome do broker
+      ACTIVEMQ_BROKER_NAME: ${ACTIVEMQ_BROKER_NAME:-localhost}
+
+    volumes:
+      # Persistência de dados
+      - activemq_data:/opt/apache-activemq/data
+
+      # Configurações personalizadas (opcional)
+      # - ./conf/activemq.xml:/opt/apache-activemq/conf/activemq.xml:ro
+      # - ./conf/jetty.xml:/opt/apache-activemq/conf/jetty.xml:ro
+      # - ./conf/log4j2.properties:/opt/apache-activemq/conf/log4j2.properties:ro
+
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8161/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+    networks:
+      - activemq_network
+
+    labels:
+      # Labels para Coolify
+      coolify.managed: "true"
+      coolify.version: "1.0"
+
+volumes:
+  activemq_data:
+    driver: local
+
+networks:
+  activemq_network:
+    driver: bridge

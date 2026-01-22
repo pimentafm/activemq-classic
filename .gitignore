@@ -1,0 +1,13 @@
+# ActiveMQ data
+data/
+
+# Local configuration
+.env
+!.env.example
+
+# Logs
+*.log
+
+# System files
+.DS_Store
+Thumbs.db

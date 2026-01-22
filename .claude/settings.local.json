@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker compose:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(make)",
+      "Bash(make info:*)"
+    ]
+  }
+}
