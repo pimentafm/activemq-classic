@@ -41,7 +41,6 @@ services:
 
     networks:
       - activemq_network
-      - coolify
 
     labels:
       # Labels para Coolify
