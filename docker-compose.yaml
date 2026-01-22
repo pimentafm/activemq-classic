@@ -30,11 +30,6 @@ services:
       # Persistência de dados
       - activemq_data:/opt/apache-activemq/data
 
-      # Configurações personalizadas (opcional)
-      # - ./conf/activemq.xml:/opt/apache-activemq/conf/activemq.xml:ro
-      - ./conf/jetty.xml:/opt/apache-activemq/conf/jetty.xml:ro
-      # - ./conf/log4j2.properties:/opt/apache-activemq/conf/log4j2.properties:ro
-
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8161/ || exit 1"]
       interval: 30s
