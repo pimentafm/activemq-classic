@@ -33,7 +33,7 @@ services:
       # - ./conf/log4j2.properties:/opt/apache-activemq/conf/log4j2.properties:ro
 
     healthcheck:
-      test: ["CMD-SHELL", "nc -z localhost 8161 || exit 1"]
+      test: ["CMD-SHELL", "curl -f http://localhost:8161/ || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
