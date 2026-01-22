@@ -5,12 +5,12 @@ services:
     restart: unless-stopped
 
     ports:
-      - "${ACTIVEMQ_OPENWIRE_PORT:-61616}:61616"   # OpenWire (JMS)
-      - "${ACTIVEMQ_AMQP_PORT:-5672}:5672"         # AMQP
-      - "${ACTIVEMQ_STOMP_PORT:-61613}:61613"      # STOMP
-      - "${ACTIVEMQ_MQTT_PORT:-1883}:1883"         # MQTT
-      - "${ACTIVEMQ_WS_PORT:-61614}:61614"         # WebSocket
-      - "${ACTIVEMQ_ADMIN_PORT:-8161}:8161"        # Web Console
+      - "${ACTIVEMQ_OPENWIRE_PORT:-61616}:61616" # OpenWire (JMS)
+      - "${ACTIVEMQ_AMQP_PORT:-5672}:5672" # AMQP
+      - "${ACTIVEMQ_STOMP_PORT:-61613}:61613" # STOMP
+      - "${ACTIVEMQ_MQTT_PORT:-1883}:1883" # MQTT
+      - "${ACTIVEMQ_WS_PORT:-61614}:61614" # WebSocket
+      - "${ACTIVEMQ_ADMIN_PORT:-8161}:8161" # Web Console
 
     environment:
       # Configurações de memória JVM e Jetty
@@ -41,6 +41,7 @@ services:
 
     networks:
       - activemq_network
+      - coolify
 
     labels:
       # Labels para Coolify

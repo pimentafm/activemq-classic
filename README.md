@@ -261,6 +261,29 @@ If you need to access other ports besides 8161, configure in **"Network"** panel
 - **1883** (MQTT): For MQTT clients
 - **61614** (WebSocket): For WebSocket clients
 
+### Common Issue: Domain Not Working (503 Error)
+
+**Problem:** Domain returns "Server Not Available" but direct IP works.
+
+**Symptoms:**
+- ✅ Works: `http://YOUR-IP:8161`
+- ❌ Doesn't work: `https://your-domain.com`
+
+**Solution:**
+
+1. In Coolify, go to your ActiveMQ service
+2. Click **"Domains"** tab
+3. Configure:
+   - **Domain:** `your-domain.com`
+   - **Port:** `8161`
+   - **Scheme:** `http` (Coolify adds HTTPS)
+   - **Path:** `/`
+4. Enable **"Generate Let's Encrypt Certificate"**
+5. Click **"Save"** and **"Redeploy"**
+6. Wait 2-3 minutes and test
+
+**For detailed troubleshooting:** See `TROUBLESHOOTING-COOLIFY.md`
+
 ## Connecting to ActiveMQ
 
 ### Connection URLs (Production)
