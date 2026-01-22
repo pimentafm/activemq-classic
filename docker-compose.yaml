@@ -45,11 +45,6 @@ services:
     networks:
       - activemq_network
 
-    labels:
-      # Coolify labels
-      coolify.managed: "true"
-      coolify.version: "1.0"
-
 volumes:
   activemq_data:
     driver: local
